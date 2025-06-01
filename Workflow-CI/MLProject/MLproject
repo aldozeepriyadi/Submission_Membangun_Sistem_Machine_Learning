@@ -6,4 +6,4 @@ entry_points:
   main:
     parameters:
       data_path: {type: str, default: "Workflow-CI/MLProject/preprocessing/preprocessed_dataset.csv"}
-    command: "python modeling.py"
+    command: "python Workflow-CI/MLProject/modeling.py"

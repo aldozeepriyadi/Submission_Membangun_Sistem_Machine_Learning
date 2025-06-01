@@ -43,7 +43,7 @@ jobs:
         shell: bash -l {0}
         run: |
           cd Workflow-CI
-          mlflow run MLProject
+          mlflow run MLProject 
 
 
       - name: Commit and Push Model Artifact
