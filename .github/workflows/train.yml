@@ -37,7 +37,7 @@ jobs:
       - name: Install MLflow CLI
         shell: bash -l {0}
         run: |
-          pip install mlflow
+          pip install mlflow dotenv
 
       - name: Run MLflow Project
         shell: bash -l {0}
