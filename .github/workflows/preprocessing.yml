@@ -27,13 +27,13 @@ jobs:
         pip install pandas scikit-learn imbalanced-learn
 
     - name: Run preprocessing script
-      run: python Eksperimen_SML\automation_aldo.py
+      run: python Eksperimen_SML/automation_aldo.py
 
     - name: Commit changes
       run: |
         git config user.name "github-actions"
         git config user.email "github-actions@users.noreply.github.com"
-        git add Eksperimen_SML\preprocessing\preprocessed_dataset.csv
+        git add Eksperimen_SML/preprocessing/preprocessed_dataset.csv
         git commit -m "Update preprocessed dataset (auto)" || echo "Nothing to commit"
         git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:${{ github.ref_name }}
       env:
