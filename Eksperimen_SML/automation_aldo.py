@@ -50,8 +50,8 @@ def save_preprocessed_data(X, y, output_path):
     print(f"Dataset tersimpan di {output_path}")
 
 def main():
-    filepath = "dataset/personality_dataset.csv"  # Ganti dengan path dataset Anda
-    output_path = "preprocessing/preprocessed_dataset.csv"
+    filepath = "Eksperimen_SML/dataset/personality_dataset.csv"  # Ganti dengan path dataset Anda
+    output_path = "Eksperimen_SML/preprocessing/preprocessed_dataset.csv"
 
     df = load_data(filepath)
     df = clean_data(df)
