@@ -18,12 +18,21 @@ jobs:
         with:
           python-version: '3.12.2' 
 
-      - name: Setup Conda
+      - name: Install Conda
         uses: conda-incubator/setup-miniconda@v2
         with:
           activate-environment: mlflow-env
-          auto-activate-base: false
-          environment-file: Workflow-CI/MLProject/conda.yaml
+          conda-config-matrix: |
+            {
+              "CONDA_CHANNELS": "defaults",
+              "CONDA_DEPS": "pip python=3.12.2",
+              "PIP_DEPS": "mlflow scikit-learn pandas numpy dagshub"
+            }
+
+      - name: Install Dependencies from conda.yaml
+        run: |
+          conda env update --name mlflow-env --file Workflow-CI/MLProject/conda.yaml--prune
+
 
       - name: Install MLflow CLI
         shell: bash -l {0}
@@ -34,7 +43,8 @@ jobs:
         shell: bash -l {0}
         run: |
           cd Workflow-CI/MLProject
-          mlflow run . 
+          mlflow run . --no-conda
+
 
       - name: Commit and Push Model Artifact
         run: |
