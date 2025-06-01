@@ -31,7 +31,7 @@ jobs:
 
       - name: Install Dependencies from conda.yaml
         run: |
-          conda env update --name mlflow-env --file Workflow-CI/MLProject/conda.yaml--prune
+          conda env update --name mlflow-env --file Workflow-CI/MLProject/conda.yaml --prune
 
 
       - name: Install MLflow CLI
