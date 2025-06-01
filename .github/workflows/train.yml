@@ -43,7 +43,7 @@ jobs:
         shell: bash -l {0}
         run: |
           cd Workflow-CI/MLProject
-          mlflow run . 
+          mlflow run MLproject --env-manager=local 
 
 
       - name: Commit and Push Model Artifact
