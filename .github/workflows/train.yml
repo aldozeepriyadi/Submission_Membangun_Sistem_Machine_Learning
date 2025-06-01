@@ -42,7 +42,7 @@ jobs:
       - name: Run MLflow Project
         shell: bash -l {0}
         run: |
-          cd Workflow-CI/MLProject
+          cd Workflow-CI
           mlflow run MLproject
 
 
