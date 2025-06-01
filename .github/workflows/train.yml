@@ -1,0 +1,47 @@
+name: CI Train Model
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  train-model:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12.2' 
+
+      - name: Setup Conda
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          activate-environment: mlflow-env
+          auto-activate-base: false
+          environment-file: Workflow-CI/MLProject/conda.yaml
+
+      - name: Install MLflow CLI
+        shell: bash -l {0}
+        run: |
+          pip install mlflow
+
+      - name: Run MLflow Project
+        shell: bash -l {0}
+        run: |
+          cd MLProject
+          mlflow run . --no-conda
+
+      - name: Commit and Push Model Artifact
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add Workflow-CI/MLProject/best_model_default.pkl || true
+          git commit -m "Add new model artifact (auto)" || echo "No changes to commit"
+          git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
