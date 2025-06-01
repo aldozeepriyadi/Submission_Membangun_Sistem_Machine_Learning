@@ -1,0 +1,40 @@
+name: Preprocessing Dataset
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write  # 🔐 Tambahkan ini agar bisa push
+
+jobs:
+  preprocessing:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12.2'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pandas scikit-learn imbalanced-learn
+
+    - name: Run preprocessing script
+      run: python automation_aldo.py
+
+    - name: Commit changes
+      run: |
+        git config user.name "github-actions"
+        git config user.email "github-actions@users.noreply.github.com"
+        git add preprocessing/preprocessed_dataset.csv
+        git commit -m "Update preprocessed dataset (auto)" || echo "Nothing to commit"
+        git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:${{ github.ref_name }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
