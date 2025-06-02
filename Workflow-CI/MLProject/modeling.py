@@ -9,7 +9,7 @@ import os
 import dotenv
 
 # Load data hasil preprocessing
-data = pd.read_csv("Workflow-CI/MLProject/preprocessing/preprocessed_dataset.csv")
+data = pd.read_csv("preprocessing/preprocessed_dataset.csv")
 
 # Pisahkan fitur dan target
 X = data.drop("Personality", axis=1)
